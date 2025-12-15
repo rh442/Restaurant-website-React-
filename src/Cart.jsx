@@ -1,36 +1,51 @@
 import {React,useEffect,useState} from "react";
-
+const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:5000';
+const sessionId = 
+  localStorage.getItem("sessionId") ||
+  (() => {
+    const id = crypto.randomUUID();
+    localStorage.setItem("sessionId", id);
+    return id;
+  })();
 function Cart(){
-    const [cart, setCart] = useState(() => {
-  return JSON.parse(localStorage.getItem("cart")) || [];
-});
-useEffect(() => {
-  localStorage.setItem("cart", JSON.stringify(cart));
-}, [cart]);
+    const [cart, setCart] = useState([]);
 
-function increaseQty(index) {
-  setCart(prev => {
-    const newCart = [...prev];
-    newCart[index].qty += 1;
-    return newCart;
-  });
-}
+    useEffect(() => {
+      fetch(`${API_URL}/api/cart/${sessionId}`)
+        .then(res => res.json())
+        .then(data => setCart(data.items || []));
+    }, []);
 
-function decreaseQty(index) {
-  setCart(prev => {
-    const newCart = [...prev];
 
-    if (newCart[index].qty > 1) {
-      newCart[index].qty -= 1;
-    } else {
-      newCart.splice(index, 1);
+    function increaseQty(itemId) {
+      fetch(`${API_URL}/api/cart/increase`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ sessionId,itemId })
+      })
+      .then(res => res.json())
+      .then(data => setCart(data.items));
     }
-    return newCart;
-  });
-}
-function ClearCart() {
-  setCart([]);
-}
+
+
+    function decreaseQty(itemId) {
+      fetch(`${API_URL}/api/cart/decrease`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ sessionId,itemId })
+      })
+      .then(res => res.json())
+      .then(data => setCart(data.items));
+    }
+
+    function ClearCart() {
+      fetch(`${API_URL}/api/cart/clear`, {
+        method: "DELETE",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ sessionId })
+      })
+      .then(() => setCart([]));
+    }
 
     return (
         <>
@@ -38,7 +53,7 @@ function ClearCart() {
                 <button className="w-auto h-auto  border-[1px] border-solid border-black text-white rounded cursor-pointer bg-red-500"onClick={ClearCart}>Clear Cart</button>
             </div>
             <div className="main_container">
-                <ul className="shopping_cart"></ul>
+                
             </div>
             <div className="cart-container">
 
@@ -56,13 +71,13 @@ function ClearCart() {
 
               <div className="quantity mr-[20px] flex flex-row gap-[10px]">
                 <button 
-                  onClick={() => decreaseQty(index)}
+                  onClick={() => decreaseQty(item._id)}
                 >➖</button>
 
                 <span>Qty: {item.qty}</span>
 
                 <button 
-                  onClick={() => increaseQty(index)}
+                  onClick={() => increaseQty(item._id)}
                 >➕</button>
               </div>
             </li>

@@ -6,39 +6,44 @@ import hBurger from './img/HamburgSlider.webp'
 import soda from './img/soda.jpg'
 import fry from './img/fries.jpg'
 import nugg from './img/Chicken_Nuggets.jpg'
+const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:5000';
+const sessionId = 
+  localStorage.getItem("sessionId") ||
+  (() => {
+    const id = crypto.randomUUID();
+    localStorage.setItem("sessionId", id);
+    return id;
+  })();
 
 function Menu(){
-    const [cart,setCart] = useState(()=>{
-        const saved = localStorage.getItem("cart");
-        return saved ? JSON.parse(saved) : [];
-    })
+    const [cart, setCart] = useState([]);
     const [popup,setPopup] = useState(false)
     useEffect(() => {
-        // Store cart in localStorage whenever it changes
-        localStorage.setItem("cart", JSON.stringify(cart));
-    }, [cart]);
-    const addToCart=(name,price,qty,img)=>{
-         setCart(prevCart => {
-        const existingItem = prevCart.find(item => item.name === name);
+    fetch(`${API_URL}/api/cart/${sessionId}`)
+      .then(res => res.json())
+      .then(data => {
+        if (data?.items) setCart(data.items);
+      });
+  }, []);
 
-        if (existingItem) {
-            // If item exists → update qty
-            return prevCart.map(item =>
-                item.name === name
-                    ? { ...item, qty: item.qty + 1 }
-                    : item
-            );
-        }
-        
+    const addToCart = async (name, price, qty, img) => {
+    const item = { name, price, qty, img };
 
-        // If new → add item
-        return [...prevCart, { name, price, qty, img }];
-        
+    const res = await fetch(`${API_URL}/api/cart/add`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        sessionId,
+        item
+      })
     });
-      setPopup(true);
-      setTimeout(() => setPopup(false), 1000);
-      
-    };
+
+    const updatedCart = await res.json();
+    setCart(updatedCart.items);
+
+    setPopup(true);
+    setTimeout(() => setPopup(false), 1000);
+  };
 
     return(
         <>

@@ -6,6 +6,7 @@ import burger from "./img/hamMenu.png"
 
 function App() {
   const [open,setOpen] = useState(false)
+  const closeMenu = () => setOpen(false);
   return (  
     <div>
       <div className="flex flex-row  justify-between items-center px-[15px] py-[20px] bg-red-600 relative w-full border-b-[5px] border-red-950 border-solid">
@@ -15,10 +16,10 @@ function App() {
       }
         md:static md:flex md:flex-row md:justify-around md:w-[50%]  md:items-center md:gap-6 md:bg-transparent
       `}>
-        <li className="md:border-t-[1px] border-b-[1px] border-solid border-yellow-200 text-yellow-400 px-[15px] py-[20px] m-0 text-[18px] cursor-pointer"><h2><Link className="text-yellow-400 no-underline visited:text-yellow-400"  to='/'>Home</Link></h2></li>
-        <li className="md:border-t-[1px] border-b-[1px] border-solid border-yellow-200 text-yellow-400 px-[15px] py-[20px] m-0 text-[18px] cursor-pointer"><h2><Link className="text-yellow-400 no-underline visited:text-yellow-400"  to='menu'>Menu</Link></h2></li>
-        <li className="md:border-t-[1px] border-b-[1px] border-solid border-yellow-200 text-yellow-400 px-[15px] py-[20px] m-0 text-[18px] cursor-pointer"><h2><Link className="text-yellow-400 no-underline visited:text-yellow-400" to='/about'>About</Link></h2></li>
-        <li className="md:border-t-[1px] border-b-[1px] border-solid border-yellow-200 text-yellow-400 px-[15px] py-[20px] m-0 text-[18px] cursor-pointer"><h2><Link className="text-yellow-400 no-underline visited:text-yellow-400" to='/contact'>Contact</Link></h2></li>
+        <li className="md:border-t-[1px] border-b-[1px] border-solid border-yellow-200 text-yellow-400 px-[15px] py-[20px] m-0 text-[18px] cursor-pointer" onClick={()=>setOpen(!open)}><h2><Link className="text-yellow-400 no-underline visited:text-yellow-400"  to='/'>Home</Link></h2></li>
+        <li className="md:border-t-[1px] border-b-[1px] border-solid border-yellow-200 text-yellow-400 px-[15px] py-[20px] m-0 text-[18px] cursor-pointer" onClick={()=>setOpen(!open)}><h2><Link className="text-yellow-400 no-underline visited:text-yellow-400"  to='/menu'>Menu</Link></h2></li>
+        <li className="md:border-t-[1px] border-b-[1px] border-solid border-yellow-200 text-yellow-400 px-[15px] py-[20px] m-0 text-[18px] cursor-pointer" onClick={()=>setOpen(!open)}><h2><Link className="text-yellow-400 no-underline visited:text-yellow-400" to='/about'>About</Link></h2></li>
+        <li className="md:border-t-[1px] border-b-[1px] border-solid border-yellow-200 text-yellow-400 px-[15px] py-[20px] m-0 text-[18px] cursor-pointer" onClick={()=>setOpen(!open)}><h2><Link className="text-yellow-400 no-underline visited:text-yellow-400" to='/contact'>Contact</Link></h2></li>
       </ul>
       <div className="flex flex-row">   
       

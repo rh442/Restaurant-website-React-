@@ -11,15 +11,15 @@ function Contact(){
 }
     return(
         <>
-            <div class="topic  mx-auto border-black border-[1px] mt-[10px] text-center  bg-yellow-400 rounded w-[50%]">
+            <div className="topic  mx-auto border-black border-[1px] mt-[10px] text-center  bg-yellow-400 rounded w-[50%]">
                 <h1>Contact Us</h1>
             </div>
 
-            <div class="map flex justify-center mt-[10px]">
-                <iframe class="gmap w-full h-[200px]"src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3021.7230845795684!2d-73.96706882465257!3d40.76811492138522!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x89c258eb899f0889%3A0xef41c13a4f070d78!2s695%20Park%20Ave%2C%20New%20York%2C%20NY%2010065!5e0!3m2!1sen!2sus!4v1759011084102!5m2!1sen!2sus"
-                allowfullscreen=""
+            <div className="map flex justify-center mt-[10px]">
+                <iframe className="gmap w-full h-[200px]"src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3021.7230845795684!2d-73.96706882465257!3d40.76811492138522!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x89c258eb899f0889%3A0xef41c13a4f070d78!2s695%20Park%20Ave%2C%20New%20York%2C%20NY%2010065!5e0!3m2!1sen!2sus!4v1759011084102!5m2!1sen!2sus"
+                allowFullScreen=""
                 loading="lazy"
-                referrerpolicy="no-referrer-when-downgrade">
+                referrerPolicy="no-referrer-when-downgrade">
                 </iframe>
             </div>
 
@@ -53,7 +53,7 @@ function Contact(){
         <h5>Saturday: 9 Am - 9pm</h5>
         <h5>Sunday: closed</h5>
       </div>
-      <div class="socials">
+      <div className="socials">
           <img className="app w-[40px] m-[10px]" src={insta} alt="insta"/>
           <img className="app w-[40px] m-[10px]"src={X_} alt="X"/>
       </div> 
