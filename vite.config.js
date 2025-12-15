@@ -6,6 +6,7 @@ export default defineConfig({
   base: "/",
   preview: {
     port: Number(process.env.PORT),
-    host: "0.0.0.0"
+    host: "0.0.0.0",
+    allowedHosts: ["restaurant-website-react-production.up.railway.app"]
   }
 });
