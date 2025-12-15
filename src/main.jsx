@@ -11,7 +11,7 @@ import Cart from './Cart.jsx'
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
-    <BrowserRouter basename="/Restaurant-website-React-">
+    <BrowserRouter basename="/">
       <Routes>
         <Route path="/*" element={<Dashboard/>}>
           <Route index element={<Home/>}/> 
